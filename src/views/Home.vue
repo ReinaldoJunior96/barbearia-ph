@@ -42,7 +42,7 @@ export default {
 </script>
 
 <template>
-  <section class="bg-secondary to-accent300 px-3 min-h-screen pt-10 ">
+  <section class="bg-secondary to-accent300 px-3 min-h-screen pt-5 ">
     <swiper
         :centeredSlides="false"
         :pagination="{ clickable: true }"
@@ -114,22 +114,4 @@ export default {
 </template>
 
 <style scoped>
-.scrollable-div {
-  scrollbar-width: thin; /* Largura da barra de rolagem (thin, auto ou none) */
-  scrollbar-color: red green; /* Cor da barra de rolagem (barra, trilha) */
-
-  /* Personalize a aparência da barra de rolagem (WebKit/Blink) */
-
-  &::-webkit-scrollbar {
-    width: 3px; /* Largura da barra de rolagem */
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: white; /* Cor do botão da barra de rolagem */
-  }
-
-  &::-webkit-scrollbar-track {
-    background-color: transparent; /* Cor da trilha da barra de rolagem */
-  }
-}
 </style>

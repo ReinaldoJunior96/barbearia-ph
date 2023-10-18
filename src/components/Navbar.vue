@@ -1,10 +1,11 @@
 <template>
-  <section v-if=" this.$route.name !== 'checkout'" class="shadow bg-secondary fixed top-0   z-40  flex flex-col justify-between
+  <section v-if=" this.$route.name !== 'checkout'"
+           class=" bg-secondary fixed top-0   z-40  flex flex-col justify-between
      gap-3 items-center px-3  py-4 w-full">
     <div class="flex items-center justify-between w-full">
 
       <div class="flex flex-col text-lg roboto-condensed ">
-        <p class="text-white sm:text-sm md:text-2xl" style="line-height: 25px">Olá, <br> {{ loginGoogle.getName }}
+        <p class="text-white sm:text-sm md:text-2xl" style="line-height: 30px">Olá, <br> {{ loginGoogle.getName }}
           &#128075;</p>
         <small class="text-gray-300 font-light sm:text-sm md:text-xs">{{
             loginGoogle.getEmail
