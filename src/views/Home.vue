@@ -43,64 +43,55 @@ export default {
 
 <template>
   <section class="bg-secondary to-accent300 px-3 min-h-screen pt-10 ">
-
     <swiper
-        :centeredSlides="true"
+        :centeredSlides="false"
         :pagination="{ clickable: true }"
-        :space-between="140"
-        :slides-per-view="3"
+        :space-between="20"
+        :slides-per-view="1.9"
     >
       <swiper-slide>
-
-        <div class=" w-[170px]
-        bg-transparent border-2 border-white rounded-full
-        text-white flex justify-center items-center gap-2
-        text-xs  p-1.5 mb-10 font-medium
-cursor-pointer
-        hover:bg-white hover:text-primary
-        ">
-          <img class="w-[30px] h-[30px] object-contain" src="../assets/images/icones/mohawk.png" alt="">
-          <p>Cortes masculinos</p>
-        </div>
+        <section>
+          <div class="
+          rounded-full border-2 border-white
+          flex items-center justify-center text-white gap-2 p-2">
+            <img class="w-[30px] h-[30px] object-contain" src="../assets/images/icones/mohawk.png" alt="">
+            <p class="whitespace-nowrap">Cortes masculinos</p>
+          </div>
+        </section>
 
       </swiper-slide>
-      <swiper-slide>
+      <swiper-slide class="mb-10">
+        <section>
+          <div class="
 
-        <div class=" w-[170px]
-        bg-transparent border-2 border-white rounded-full
-        text-white flex justify-center items-center gap-2
-        text-xs  p-1.5 mb-10 font-medium
-cursor-pointer
-        hover:bg-white hover:text-primary">
-          <img class="ww-[30px] h-[30px] object-contain" src="../assets/images/icones/beard.png" alt="">
-          <p>Barbas</p>
-        </div>
-
-      </swiper-slide>
-      <swiper-slide>
-
-        <div class=" w-[170px]
-        bg-transparent border-2 border-white rounded-full
-        text-white flex justify-center items-center gap-2
-        text-xs  p-1.5 mb-10 font-medium
-cursor-pointer
-        hover:bg-white hover:text-primary">
-          <img class="w-[30px] h-[30px] object-contain" src="../assets/images/icones/hairstyle.png" alt="">
-          <p>Luzes</p>
-        </div>
+          rounded-full border-2 border-white
+          flex items-center justify-center text-white gap-2 p-2">
+            <img class="w-[30px] h-[30px] object-contain" src="../assets/images/icones/beard.png" alt="">
+            <p class="whitespace-nowrap">Barbas</p>
+          </div>
+        </section>
 
       </swiper-slide>
-      <swiper-slide>
+      <swiper-slide class="">
+        <section>
+          <div class="
+          rounded-full border-2 border-white
+          flex items-center justify-center text-white gap-2 p-2">
+            <img class="w-[30px] h-[30px] object-contain" src="../assets/images/icones/hairstyle.png" alt="">
+            <p class="whitespace-nowrap">Luzes</p>
+          </div>
+        </section>
 
-        <div class=" w-[170px]
-         bg-transparent border-2 border-white rounded-full
-        text-white flex justify-center items-center gap-2
-        text-xs  p-1.5 mb-10 font-medium
-cursor-pointer
-        hover:bg-white hover:text-primary">
-          <img class="w-[30px] h-[30px] object-contain" src="../assets/images/icones/shampoo.png" alt="">
-          <p>Platinado</p>
-        </div>
+      </swiper-slide>
+      <swiper-slide class="">
+        <section>
+          <div class="
+          rounded-full border-2 border-white
+          flex items-center justify-center text-white gap-2 p-2">
+            <img class="w-[30px] h-[30px] object-contain" src="../assets/images/icones/shampoo.png" alt="">
+            <p class="whitespace-nowrap">Platinado</p>
+          </div>
+        </section>
 
       </swiper-slide>
     </swiper>
