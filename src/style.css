@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'grafite'; /* Dê um nome à sua fonte */
+    src: url('./assets/font/grafite.otf') format('opentype');
+    /* Adicione mais formatos se necessário */
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'grafite-urbano'; /* Dê um nome à sua fonte */
+    src: url('./assets/font/grafite-urban.ttf') format('opentype');
+    /* Adicione mais formatos se necessário */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gh-outline'; /* Dê um nome à sua fonte */
+    src: url('./assets/font/ghoust/Ghoust Outline.otf') format('opentype');
+    /* Adicione mais formatos se necessário */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gh-shadow'; /* Dê um nome à sua fonte */
+    src: url('./assets/font/ghoust/Ghoust Shadow.otf') format('opentype');
+    /* Adicione mais formatos se necessário */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gh-solid'; /* Dê um nome à sua fonte */
+    src: url('./assets/font/ghoust/Ghoust Solid.otf') format('opentype');
+    /* Adicione mais formatos se necessário */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'street'; /* Dê um nome à sua fonte */
+    src: url('./assets/font/Streetfire.otf') format('opentype');
+    /* Adicione mais formatos se necessário */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'keway'; /* Dê um nome à sua fonte */
+    src: url('./assets/font/KEWAY-PersonalUse.otf') format('opentype');
+    /* Adicione mais formatos se necessário */
+    font-weight: normal;
+    font-style: normal;
+}
+
+.keway {
+    font-family: 'keway', sans-serif; /* Use a fonte personalizada e uma fonte de fallback */
+}
+
+.street {
+    font-family: 'street', sans-serif; /* Use a fonte personalizada e uma fonte de fallback */
+}
+
+.gh-ouline {
+    font-family: 'gh-outline', sans-serif; /* Use a fonte personalizada e uma fonte de fallback */
+}
+
+.gh-shadow {
+    font-family: 'gh-shadow', sans-serif; /* Use a fonte personalizada e uma fonte de fallback */
+}
+
+.gh-solid {
+    font-family: 'gh-solid', sans-serif; /* Use a fonte personalizada e uma fonte de fallback */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.grafite-urbano {
+    font-family: 'grafite-urbano', sans-serif; /* Use a fonte personalizada e uma fonte de fallback */
+}
+
+.font-grafite {
+    font-family: 'grafite', sans-serif; /* Use a fonte personalizada e uma fonte de fallback */
+}
+
+.roboto {
+    font-family: 'Roboto', sans-serif; /* Use a fonte personalizada e uma fonte de fallback */
+}
+.roboto-condensed {
+    font-family: 'Roboto Condensed', sans-serif;/* Use a fonte personalizada e uma fonte de fallback */
+}
+
+
+.botao-main{
+    @apply bg-emerald-400 p-3 px-8 rounded text-gray-600 font-bold
+    hover:bg-emerald-800 hover:text-white shadow shadow-white
+}
+
