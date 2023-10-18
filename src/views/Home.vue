@@ -53,9 +53,12 @@ export default {
         <section>
           <div class="
           rounded-full border-2 border-white
-          flex items-center justify-center text-white gap-2 p-2">
-            <img class="w-[30px] h-[30px] object-contain" src="../assets/images/icones/mohawk.png" alt="">
-            <p class="whitespace-nowrap">Cortes masculinos</p>
+          flex items-center justify-center text-white gap-2 py-2 ">
+            <div class="flex items-center">
+              <img class="w-[30px] h-[30px] object-contain" src="../assets/images/icones/mohawk.png" alt="">
+              <p class="whitespace-nowrap ">Cortes masculinos</p>
+            </div>
+
           </div>
         </section>
 
