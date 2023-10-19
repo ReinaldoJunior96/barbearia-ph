@@ -24,6 +24,8 @@ export default {
         accent100: '#aed3d5',
         accent200: '#4d88a6',
         accent300: '#294970',
+        accent400: '#457fca',
+        accent500: '#5691c8',
 
 
 

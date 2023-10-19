@@ -90,6 +90,7 @@ export default {
       horario.isActive = !horario.isActive
       const agendamento = useAgendamento()
       agendamento.agendar(`${day}/${month}/${year} às ${horario.time}`)
+      agendamento.addTime(horario.time)
       //agendamento.agendar(`Agendamento: ${day}/${month}/${year} às ${horario.time}`)
       //console.log(agendamento.getTextAgendamentoIsVisible)
     },
@@ -99,8 +100,37 @@ export default {
 </script>
 
 <template>
-  <section class=" bg-secondary mb-28 px-3">
-    <div class="flex flex-col gap-5 px-2 pt-10  h-[410px] overflow-auto" :class="{'pt-32': agendamento.agendamentoIsVisible !== null}">
+  <section class=" bg-secondary mb-28 px-5">
+    <div class="">
+      <div class="flex items-start gap-2 flex-col ">
+        <div class="flex items-center gap-2">
+          <img class="w-[30px] h-[30px] object-contain" src="https://cdn-icons-png.flaticon.com/128/3643/3643707.png"
+               alt="">
+          <p class="text-white text-base montserrat">
+            {{ agendamento.getServico ? ` Agendamento para: ${agendamento.getServico}` : 'Nossos horários' }}
+
+          </p>
+        </div>
+        <div v-show="agendamento.getServico !== null" class="w-full">
+          <div v-show="agendamento.getTime === null" class="flex items-center gap-2">
+            <p class="text-white text-2xl montserrat font-light">Escolha o </p>
+            <p class="text-white text-2xl montserrat font-bold">dia e horário</p>
+          </div>
+          <div v-show="agendamento.getTime !== null" class="w-full">
+            <button @click="this.$router.push({name: 'checkout'})"
+                    class="w-full bg-gradient-to-r to-[#457fca] from-[#5691c8]
+              hover:bg-gradient-to-r hover:to-white  hover:text-primary   p-2
+              hover:from-white text-white rounded-lg font-medium roboto-condensed text-lg">
+              Revisar agendamento
+            </button>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+    <div class="flex flex-col gap-5  pt-5">
       <div class="card " v-for="(card, index) in cards" :key="index">
         <div class="flex justify-between roboto cursor-pointer sm:text-sm md:text-lg  roboto-condensed"
              @click="toggleCard(index)">
@@ -115,7 +145,7 @@ export default {
                 class="horarios"
                 :class="{
                   'bg-white text-primary': !horario.isActive,
-                  'bg-accent300 text-white border-white': horario.isActive
+                  ' bg-gradient-to-r to-[#457fca] from-[#5691c8] text-white border-white': horario.isActive
                 }"
                 @click="selectHorario(card.day, card.month, card.year, indexHorario)"
                 v-for="(horario, indexHorario) in horarios"

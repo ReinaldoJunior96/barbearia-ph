@@ -16,25 +16,32 @@ export default {
       agendamento
     }
   },
+  methods:{
+    clearAppoitment(){
+      const agendamento = useAgendamento()
+      agendamento.cleanAppointment()
+      this.$router.push({name: 'home'})
+    }
+  }
 
 }
 </script>
 
 <template>
-  <section class="flex flex-col justify-between   items-center pt-10">
+  <section class="flex flex-col justify-between   items-center pt-20">
     <div class="flex flex-col rounded-full w-full text-center px-3 ">
-      <img src="../assets/images/calendar.png" class="w-auto h-24 object-contain mb-3" alt="">
+      <img src="https://cdn-icons-png.flaticon.com/128/6452/6452497.png" class="w-auto h-24 object-contain mb-3" alt="">
       <div class="flex  items-center gap-2 w-full">
-        <div class="h-[2px] w-full flex-1 bg-gradient-to-r to-accent300 from-transparent"></div>
+        <div class="h-[2px] w-full flex-1 bg-gradient-to-r to-[#457fca] from-transparent"></div>
         <p class="text-white font-medium roboto-condensed text-right sm:text-base">
           Revise seu agendamento
         </p>
-        <div class="h-[2px] w-full flex-1 bg-gradient-to-r to-transparent from-accent300"></div>
+        <div class="h-[2px] w-full flex-1 bg-gradient-to-r to-transparent from-[#457fca]"></div>
       </div>
       <div class="flex flex-col justify-between  w-full h-[250px] text-left  mt-5 bg-white  rounded-lg relative">
         <div class="
         flex justify-center items-center
-        bg-gradient-to-r to-[#11998e] from-[#11FFBD] rounded-t-lg h-[40px]">
+        bg-gradient-to-r to-[#457fca] from-[#5691c8] rounded-t-lg h-[40px]">
           <p class="text-white font-medium roboto-condensed text-right sm:text-base">Agendamento realizado </p>
         </div>
         <div class="w-full flex px-3 justify-between items-center roboto-condensed ">
@@ -50,7 +57,7 @@ export default {
 
         <div class="">
           <div class="h-[35px] w-[35px] rounded-full bg-secondary absolute top-[53%] -right-3 z-50"></div>
-          <div class="absolute top-[59%]  border-dotted  border-gray-400 border-t-4 w-full"></div>
+          <div class="absolute top-[59%]  border-dotted  border-secondary border-t-4 w-full"></div>
           <div class="h-[35px] w-[35px] rounded-full bg-secondary absolute top-[53%] -left-3 z-50"></div>
         </div>
 
@@ -58,7 +65,7 @@ export default {
         <div class="w-full flex px-3 justify-between items-center pt-5 mb-5 roboto-condensed">
           <div class="flex flex-col">
             <p class="text-base text-gray-400 ">Serviço</p>
-            <p class="text-primary font-bold text-2xl">Corte de cabelo</p>
+            <p class="text-primary font-bold text-2xl">{{agendamento.getServico}}</p>
           </div>
           <div class="flex flex-col">
             <p class="text-base text-gray-400 ">Valor</p>
@@ -87,11 +94,15 @@ export default {
                id="checkConcordo">
       </div>
       <button
-          class="flex-1 bg-gradient-to-r to-[#11998e] from-[#11FFBD]  hover:bg-gradient-to-r hover:to-white  hover:text-primary  w-full p-2  hover:from-white shadow-sm shadow-green-400 border-white text-white rounded-lg font-medium roboto-condensed text-lg"
+          @click="clearAppoitment()"
+          class="flex-1 bg-gradient-to-r to-[#457fca] from-[#5691c8]  hover:bg-gradient-to-r hover:to-white
+            hover:text-primary  w-full p-2  hover:from-white   border-white
+            text-white rounded-lg font-medium roboto-condensed text-lg cursor-pointer"
+
           :class="{
-        'bg-gradient-to-r to-gray-500 from-gray-500 text-black  shadow-sm shadow-black-400  hover:to-gray-500 hover:from-gray-500 shadow-gray-400': checkAcceptTerms,
-        '': !checkAcceptTerms,
-      }"
+              'bg-gradient-to-r to-gray-500 from-gray-500  shadow-sm shadow-black-400  hover:to-gray-500 hover:from-gray-500 shadow-gray-400': checkAcceptTerms,
+              '': !checkAcceptTerms,
+            }"
           :disabled="checkAcceptTerms">
         Finalizar
       </button>

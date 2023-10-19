@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -105,6 +106,10 @@
 }
 .roboto-condensed {
     font-family: 'Roboto Condensed', sans-serif;/* Use a fonte personalizada e uma fonte de fallback */
+}
+
+.montserrat {
+    font-family: 'Montserrat', sans-serif;
 }
 
 

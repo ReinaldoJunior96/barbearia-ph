@@ -25,30 +25,32 @@
                         'bg-white': $route.name !== item.routeNamePush
                       }">
             <div class=" flex flex-col"
-                 :class="{'p-2.5 px-2 rounded-full bg-secondary ': $route.name === item.routeNamePush}">
-              <i :class="[item.icone, 'p-2 bg-white px-4 rounded-full text-xl '] "></i>
+                 :class="{'p-2.5 px-3 rounded-full bg-secondary ': $route.name === item.routeNamePush}">
+              <img class="w-[30px] h-[30px] object-contain"
+                   :src="item.icone" alt="">
             </div>
             <p
                 :class="{
-              '-translate-y-0.5 text-gray-600 font-medium roboto ': $route.name === item.routeNamePush,
-              '-translate-y-3 text-gray-300 ': $route.name !== item.routeNamePush,
+              'translate-y-[10px] text-gray-600 font-medium roboto ': $route.name === item.routeNamePush,
+              ' text-gray-300 ': $route.name !== item.routeNamePush,
 
             }"
-                class="  text-xs relative z-50      ">
+                class="  text-sm font-medium  relative z-50      ">
               {{ item.text }}
             </p>
 
 
           </router-link>
-          <div @click="google.logout()"
-               class="transition-all  rounded-full"
-          >
-            <div class="flex flex-col items-center  mb-2"
-            >
-              <i class="fa-regular fa-calendar-check text-xl bg-white px-3 py-1 rounded-full text-gray-400   "></i>
-              <p class="text-gray-400 text-xs">Sair</p>
-            </div>
-          </div>
+<!--          <div @click="google.logout()"-->
+<!--               class="transition-all  rounded-full"-->
+<!--          >-->
+<!--            <div class="flex flex-col items-center  mb-2"-->
+<!--            >-->
+<!--              <img class="w-[28px] h-[28px] object-contain"-->
+<!--                   src="https://cdn-icons-png.flaticon.com/128/6568/6568599.png" alt="">-->
+<!--              <p class="text-gray-400 text-xs translate-y-[10px]  font-medium roboto ">Sair</p>-->
+<!--            </div>-->
+<!--          </div>-->
         </nav>
       </Transition>
     </keep-alive>
@@ -67,22 +69,18 @@ export default {
       showOptions: false,
       optionsNavigation: [
         {
-          icone: 'fa-solid fa-clock',
-          text: 'Agendar',
-          routeNamePush: 'agendar-horario'
-        },
-        {
-          icone: 'fa-solid fa-chair',
-          text: 'Servicos',
-          routeNamePush: 'servicos'
-        },
-        {
-          icone: 'fa-solid fa-fire',
+          icone: 'https://cdn-icons-png.flaticon.com/128/12371/12371068.png',
           text: 'ìnicio',
           routeNamePush: 'home'
         },
         {
-          icone: 'fa-solid fa-calendar-check',
+          icone: 'https://cdn-icons-png.flaticon.com/128/10147/10147619.png',
+          text: 'Horários',
+          routeNamePush: 'agendar-horario'
+        },
+
+        {
+          icone: 'https://cdn-icons-png.flaticon.com/128/9747/9747296.png',
           text: 'Agendamentos',
           routeNamePush: 'meus-agendamentos'
         }
