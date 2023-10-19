@@ -51,7 +51,7 @@ export default {
 </script>
 
 <template>
-  <section class="bg-secondary to-accent300    ">
+  <section class="bg-secondary to-accent300  mb-20   ">
     <div class="px-5">
       <div class="flex items-end gap-1 ">
         <p class="text-white text-lg montserrat">Olá, </p>

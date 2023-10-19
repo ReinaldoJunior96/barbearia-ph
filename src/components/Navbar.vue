@@ -1,58 +1,38 @@
 <template>
   <section
-           class=" bg-secondary fixed top-0   z-40  flex flex-col justify-between
+      class=" bg-secondary fixed top-0   z-40  flex flex-col justify-between
      gap-3 items-center px-5  py-3 w-full">
     <div class="flex items-center justify-between w-full">
-      <div v-show="this.$route.name === 'home'" @click="showMenu.show()"
+      <div v-show="this.$route.name === 'home'" @click="showSideBar"
            class="flex flex-col items-start cursor-pointer  gap-1">
         <div class=" h-[2px] rounded w-[20px] bg-white"></div>
         <div class=" h-[2px] rounded w-[18px] bg-white"></div>
         <div class=" h-[2px] rounded w-[15px] bg-white"></div>
       </div>
       <div @click="this.$router.go(-1);" v-show="this.$route.name !== 'home'" class="">
-        <img class="w-[30px] h-[30px] object-contain" src="https://cdn-icons-png.flaticon.com/128/545/545781.png" alt="">
+        <img class="w-[30px] h-[30px] object-contain" src="https://cdn-icons-png.flaticon.com/128/545/545781.png"
+             alt="">
       </div>
-<!--      <div class="flex flex-col text-lg roboto-condensed ">-->
-<!--        <p class="text-white sm:text-sm md:text-2xl" style="line-height: 30px">Olá, <br> {{ loginGoogle.getName }}-->
-<!--          &#128075;</p>-->
-<!--        <small class="text-gray-300 font-light sm:text-sm md:text-xs">{{-->
-<!--            loginGoogle.getEmail-->
-<!--          }}</small>-->
-<!--      </div>-->
-
-
       <img class="w-[50px] h-[50px] object-cover rounded-full "
            :src="loginGoogle.getPicture" alt="">
+      <Transition name="slide-fade">
+        <nav v-show="showMenu.showMenu" class=" h-screen w-8/12 bg-white fixed top-0 z-50">
+          <div class="flex flex-col items-center">
+            <img class="w-auto h-[200px] object-contain" src="../assets/images/picole.png" alt="">
+          </div>
 
-
+          <ul class="flex flex-col gap-3 px-3">
+            <li @click="this.$router.push({name: item.routeNamePush})" v-for="item in optionsNavigation" class="flex items-center gap-2 py-2
+           hover:bg-secondary rounded hover:text-white montserrat px-2 cursor-pointer text-sm">
+              <img class="w-[25px] h-[25px] object-contain" :src="item.icone" alt="">
+              <p>{{ item.text }}</p>
+            </li>
+          </ul>
+        </nav>
+      </Transition>
+      <div @click="showSideBar()"
+           class="fundo-escuro hidden opacity-50 fixed bg-black w-full h-screen top-0 z-40 "></div>
     </div>
-<!--    <div v-if="agendamento.agendamentoIsVisible !== null && this.$route.name !== 'checkout'" class="flex w-full">-->
-<!--      <div class="flex flex-col items-end gap-3 w-full  ">-->
-<!--        <div class="flex  items-center gap-2 w-full">-->
-<!--          <div class="h-[2px] w-full flex-1 bg-gradient-to-r to-accent300 from-transparent"></div>-->
-<!--          <p class="text-white font-medium roboto-condensed text-right sm:text-base">-->
-<!--            {{ agendamento.agendamentoIsVisible ? `Agendamento: ${agendamento.agendamentoIsVisible}` :'Agende seu horário!' }}-->
-<!--          </p>-->
-<!--        </div>-->
-<!--        <div class="flex w-full items-stretch justify-evenly gap-3">-->
-<!--          <Transition name="slide-fade">-->
-<!--            <button @click="cleanApointment()"-->
-<!--                class=" hover:bg-white hover:text-primary  hover:border-primary-->
-<!--                      w-auto p-2 bg-transparent border-2 border-white text-white rounded-lg font-medium roboto-condensed text-lg">-->
-<!--              Limpar agendamento-->
-<!--            </button>-->
-<!--          </Transition>-->
-<!--          <Transition name="slide-fade">-->
-<!--            <button @click="this.$router.push('/checkout')"-->
-<!--                class="flex-1 bg-gradient-to-r to-[#11998e] from-[#11FFBD]  hover:bg-gradient-to-r hover:to-white hover:from-white hover:text-primary-->
-<!--                      w-auto p-2   shadow-sm shadow-green-400 border-white text-white rounded-lg font-medium roboto-condensed text-lg ">-->
-<!--              Agendar-->
-<!--            </button>-->
-<!--          </Transition>-->
-<!--        </div>-->
-
-<!--      </div>-->
-<!--    </div>-->
 
 
   </section>
@@ -67,13 +47,36 @@ export default {
   data () {
     return {
       showOptions: false,
-      activeMenu: true
+      activeMenu: true,
+      optionsNavigation: [
+        {
+          icone: 'https://cdn-icons-png.flaticon.com/128/12371/12371068.png',
+          text: 'Ínicio',
+          routeNamePush: 'home'
+        },
+        {
+          icone: 'https://cdn-icons-png.flaticon.com/128/10147/10147619.png',
+          text: 'Horários',
+          routeNamePush: 'agendar-horario'
+        },
+
+        {
+          icone: 'https://cdn-icons-png.flaticon.com/128/9747/9747296.png',
+          text: 'Meus agendamentos',
+          routeNamePush: 'meus-agendamentos'
+        }
+      ]
     }
   },
-  methods:{
+  methods: {
     cleanApointment () {
       const agendamento = useAgendamento()
       agendamento.agendar(null)
+    },
+    showSideBar () {
+      const showMenu = useShowMenu()
+      showMenu.show()
+      $('.fundo-escuro').toggleClass('hidden')
     }
   },
   watch: {
@@ -97,7 +100,7 @@ export default {
 </script>
 <style scoped>
 .slide-fade-enter-active {
-  transition: all 0.1s ease-out;
+  transition: all 0.1s ease;
 }
 
 .slide-fade-leave-active {
@@ -106,13 +109,13 @@ export default {
 
 .slide-fade-enter-from,
 .slide-fade-leave-to {
-  transform: translateY(20px);
+  transform: translateX(-20px);
   opacity: 0;
 }
 
 .v-enter-active,
 .v-leave-active {
-  transition: opacity 0.3ms ease;
+  transition: opacity 0.3ms ease-out;
 }
 
 .v-enter-from,

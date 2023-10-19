@@ -3,7 +3,7 @@ export const useShowMenu
   = defineStore('menu', {
   state: () => {
     return {
-      visible: true,
+      visible: false,
     }
   },
   actions: {
