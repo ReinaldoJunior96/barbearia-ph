@@ -15,7 +15,7 @@ export default {
       }
     }
 
-    axios.get('http://54.208.52.199:3000/api/api/users/appointments', axiosConfig)
+    axios.get('http://54.208.52.199:3000/api/users/appointments', axiosConfig)
         .then((res) => {
           appointments.value = res.data.appointments
 
