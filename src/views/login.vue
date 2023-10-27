@@ -62,9 +62,9 @@ export default {
   mounted () {
     $('.lds-dual-ring').hide()
     $('.textBtn').show()
-    // if (localStorage.getItem('token')) {
-    //   this.$router.push('/home')
-    // }
+    if (localStorage.getItem('token')) {
+      this.$router.push('/home')
+    }
 
   },
 

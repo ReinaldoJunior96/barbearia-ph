@@ -125,6 +125,8 @@ export default {
     logout () {
       const menu = useShowMenu()
       menu.show()
+      localStorage.clear();
+
       this.$router.push('/')
     },
     showSideBar () {
