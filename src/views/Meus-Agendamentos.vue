@@ -56,7 +56,7 @@ export default {
         }
       }
       self = this
-      axios.delete(`http://54.208.52.199:3000/api/api/appointments/delete/${appId}`, axiosConfig) // Passando o appId na URL
+      axios.delete(`http://54.208.52.199:3000/api/appointments/delete/${appId}`, axiosConfig) // Passando o appId na URL
           .then((res) => {
 
             self.appointments.splice(index, 1)
