@@ -33,7 +33,7 @@ export default {
 
       localStorage.removeItem('token')
       self = this
-      axios.post('/api/users/login', {
+      axios.post('http://54.208.52.199:3000/api/users/login', {
         'email': this.user,
         'password': this.password
       })
