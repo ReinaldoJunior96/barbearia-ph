@@ -32,6 +32,7 @@ export default {
 
     this.dateAgendamento = localStorage.getItem('dateService')
 
+
   },
   methods: {
     generateCards () {
@@ -106,6 +107,7 @@ export default {
       const hora = dataObj.getHours()
       const minutos = dataObj.getMinutes()
 
+
       return `${dia < 10 ? '0' : ''}${dia}/${mes < 10 ? '0' : ''}${mes}/${ano} ${hora < 10 ? '0' : ''}${hora}:${minutos < 10 ? '0' : ''}${minutos}`
     }
 
@@ -150,8 +152,8 @@ export default {
                class="w-[30px] h-[30px]   object-contain " alt="">
           <div class="text-sm">
             <p class="text-white flex flex-1">Serviço: {{ agendamento.getServico }}</p>
-            <p class="text-white flex flex-1 font-medium">
-              {{ convertDate(dateAgendamento) }}
+            <p v-if="agendamento.dateAppointment !== null" class="text-white flex flex-1 font-medium">
+              {{convertDate(dateAgendamento)}}
             </p>
           </div>
 

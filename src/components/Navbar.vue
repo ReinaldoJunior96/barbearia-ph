@@ -149,7 +149,6 @@ export default {
 
     const name = localStorage.getItem('name')
 
-    console.log(email)
     return {
       showMenu,
       agendamento,
