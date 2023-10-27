@@ -35,7 +35,7 @@ export default {
           service: agendamento.getServico
         }
 
-        axios.post('/api/appointments/created', requestData, axiosConfig) // Passando a configuração do cabeçalho como o terceiro argumento
+        axios.post('http://54.208.52.199:3000/api/appointments/created', requestData, axiosConfig) // Passando a configuração do cabeçalho como o terceiro argumento
             .then((res) => {
               agendamento.cleanAppointment()
               this.$router.push({ name: 'home' })
