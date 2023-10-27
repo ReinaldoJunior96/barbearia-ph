@@ -43,7 +43,7 @@ export default {
               this.$router.push({ name: 'home' })
             })
             .catch((error) => {
-              alert.push('Error', 'Um erro aconteceu, tente agendar <br> novamente')
+              alert.push('Error', 'Um erro aconteceu, tente agendar novamente')
               this.$router.push('/home')
               console.error('Erro no registro', error)
             })

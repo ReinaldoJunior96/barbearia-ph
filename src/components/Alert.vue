@@ -21,7 +21,7 @@ export default {
          }"
            class="flex justify-center fixed bottom-10 left-5 sm:text-sm md:text-base
          h-auto w-auto rounded-sm">
-        <p class="roboto-condensed text-white p-2 px-3 ">
+        <p class="roboto-condensed text-white p-2 px-3 max-w-[250px] ">
           {{ alert.mgs }}
         </p>
        </div>
