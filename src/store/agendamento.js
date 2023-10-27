@@ -5,7 +5,7 @@ import { useRoute, useRouter } from 'vue-router'
 export const useAgendamento = defineStore('agendamento', {
   state: () => {
     return {
-      textoAgendamento: null,
+      date: null,
       servico: null,
       day: null,
       month: null,
@@ -16,7 +16,7 @@ export const useAgendamento = defineStore('agendamento', {
   },
   actions: {
     agendar (texto) {
-      this.textoAgendamento = texto // Correção: Use state.textoAgendamento
+      this.date = texto
 
     },
     addServico (servico) {
@@ -32,10 +32,11 @@ export const useAgendamento = defineStore('agendamento', {
       this.year = null
       this.time = null
     },
+
   },
 
   getters: {
-    agendamentoIsVisible: (state) => state.textoAgendamento,
+    dateAppointment: (state) => state.date,
     getServico: (state) => state.servico,
     getTime: (state) => state.time,
   },

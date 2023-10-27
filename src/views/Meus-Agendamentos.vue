@@ -1,51 +1,95 @@
 <script>
 import { useAgendamento } from '../store/agendamento.js'
 import $ from 'jquery'
+import { ref } from 'vue'
+import axios from 'axios'
 
 export default {
   setup () {
     const agendamento = useAgendamento()
+    const appointments = ref([])
+    const token = localStorage.getItem('token')
+    const axiosConfig = {
+      headers: {
+        'authorization': `Bearer ${token}` // Adicione o token ao cabeçalho de autorização
+      }
+    }
+
+    axios.get('/api/users/appointments', axiosConfig)
+        .then((res) => {
+          appointments.value = res.data.appointments
+
+        })
+        .catch((error) => {
+          console.error('Erro no registro', error)
+        })
     return {
-      agendamento
+      agendamento,
+      appointments
     }
   },
-  methods:{
-    showOptionsCard(){
-      console.log($('#dropdown').toggleClass('hidden'))
+  methods: {
+    showOptionsCard (apId) {
+      const selector = `#${apId}`
+      $(selector).toggleClass('hidden')
+    },
+    convertDate (date) {
+      const dataObj = new Date(date)
+
+      if (isNaN(dataObj)) {
+        return 'Data inválida'
+      }
+
+      const dia = dataObj.getDate().toString().padStart(2, '0')
+      const mes = (dataObj.getMonth() + 1).toString().padStart(2, '0')
+      const ano = dataObj.getFullYear()
+      const hora = dataObj.getHours().toString().padStart(2, '0')
+      const minutos = dataObj.getMinutes().toString().padStart(2, '0')
+
+      return `${dia}/${mes}/${ano} ${hora}:${minutos}`
+    },
+    deleteMyAppointment (appId, index) {
+      const token = localStorage.getItem('token')
+      const axiosConfig = {
+        headers: {
+          'authorization': `Bearer ${token}` // Adicione o token ao cabeçalho de autorização
+        }
+      }
+      self = this
+      axios.delete(`/api/appointments/delete/${appId}`, axiosConfig) // Passando o appId na URL
+          .then((res) => {
+
+            self.appointments.splice(index, 1)
+          })
+          .catch((error) => {
+            console.error('Erro no registro', error)
+          })
     }
+
   }
 }
 </script>
 
 <template>
   <section>
-    <div class="px-5">
-      <div class="flex items-start gap-2 flex-col ">
-        <div class="flex items-center gap-2">
-          <img class="w-[30px] h-[30px] object-contain"
-               src="https://cdn-icons-png.flaticon.com/128/9918/9918694.png"
-               alt="">
-          <p class="text-white text-base montserrat">
-            Agendamentos realizados
-          </p>
-        </div>
-      </div>
+    <div class="px-5 relative mb-10">
       <div class="flex flex-col gap-3 mt-5 relative  ">
-        <div class="bg-white rounded-lg p-3  border-l-[5px] border-accent400 montserrat text-lg  ">
+        <div v-for="(ap, index) in appointments" :key="ap._id"
+             class="bg-white rounded-lg p-3  border-l-[5px] border-secondary montserrat text-lg shadow-gray-300 shadow-sm  ">
           <div class="flex items-center justify-between">
             <div class="">
-              <p class="text-gray-500 mb-2">Agendamento</p>
+              <p class="text-secondary mb-2">Agendamento</p>
             </div>
-            <div  @click="showOptionsCard()" class="relative">
-              <i id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+            <div @click="showOptionsCard()" class="relative text-secondary">
+              <i @click="showOptionsCard(ap._id)" data-dropdown-toggle="dropdown"
                  class="fa-solid fa-ellipsis-vertical"></i>
 
               <!-- Dropdown menu -->
-              <div id="dropdown"
+              <div :id="ap._id"
                    class="z-10  absolute hidden right-0 bg-white divide-y divide-gray-800
                    rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                  <li>
+                  <li @click="deleteMyAppointment(ap._id, index)">
                     <a href="#"
                        class="flex items-center gap-2 text-danger px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                       <i class="fa-regular fa-circle-xmark"></i>
@@ -60,23 +104,18 @@ export default {
 
           <div class="flex items-center gap-1">
 
-            <img class="w-[20px] h-[20px] object-contain" src="https://cdn-icons-png.flaticon.com/128/5629/5629409.png"
-                 alt="">
-            <p class="text-gray-500 ">20/10/2023 - 08:00 AM</p>
+
+            <p class="text-secondary ">{{ convertDate(ap.dateTime) }}</p>
 
           </div>
-          <div class="h-[1px] my-2 w-full  bg-gradient-to-r to-accent400 from-accent500"></div>
+          <div class="h-[1px] my-2 w-full  bg-gradient-to-r from-secondary to-transparent"></div>
           <div class="flex items-center">
-
-            <img class="w-[20px] h-[20px] object-contain" src="https://cdn-icons-png.flaticon.com/128/4255/4255018.png"
-                 alt="">
-
-            <p class="text-gray-500 ">Corte de cabelo</p>
+            <p class="text-secondary ">Serivço: {{ ap.service }}</p>
           </div>
         </div>
       </div>
     </div>
-  </section>
+    </section>
 </template>
 
 <style scoped>

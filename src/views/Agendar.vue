@@ -89,53 +89,35 @@ export default {
       // Alterna a propriedade isActive para selecionar ou deselecionar o horário
       horario.isActive = !horario.isActive
       const agendamento = useAgendamento()
-      agendamento.agendar(`${day}/${month}/${year} às ${horario.time}`)
+      agendamento.agendar(`${year}-${month}-${day}T${horario.time}`)
       agendamento.addTime(horario.time)
       //agendamento.agendar(`Agendamento: ${day}/${month}/${year} às ${horario.time}`)
       //console.log(agendamento.getTextAgendamentoIsVisible)
     },
+    convertDate (date) {
+      const dataObj = new Date(date)
+
+      const dia = dataObj.getDate()
+      const mes = dataObj.getMonth() + 1
+      const ano = dataObj.getFullYear()
+      const hora = dataObj.getHours()
+      const minutos = dataObj.getMinutes()
+
+      return `${dia < 10 ? '0' : ''}${dia}/${mes < 10 ? '0' : ''}${mes}/${ano} ${hora < 10 ? '0' : ''}${hora}:${minutos < 10 ? '0' : ''}${minutos}`
+    }
 
   },
 }
 </script>
 
 <template>
-  <section class=" bg-secondary mb-28 px-5">
-    <div class="">
-      <div class="flex items-start gap-2 flex-col ">
-        <div class="flex items-center gap-2">
-          <img class="w-[30px] h-[30px] object-contain" src="https://cdn-icons-png.flaticon.com/128/3643/3643707.png"
-               alt="">
-          <p class="text-white text-base montserrat">
-            {{ agendamento.getServico ? ` Agendamento para: ${agendamento.getServico}` : 'Nossos horários' }}
-
-          </p>
-        </div>
-        <div v-show="agendamento.getServico !== null" class="w-full">
-          <div v-show="agendamento.getTime === null" class="flex items-center gap-2">
-            <p class="text-white text-2xl montserrat font-light">Escolha o </p>
-            <p class="text-white text-2xl montserrat font-bold">dia e horário</p>
-          </div>
-          <div v-show="agendamento.getTime !== null" class="w-full">
-            <button @click="this.$router.push({name: 'checkout'})"
-                    class="w-full bg-gradient-to-r to-[#457fca] from-[#5691c8]
-              hover:bg-gradient-to-r hover:to-white  hover:text-primary   p-2
-              hover:from-white text-white rounded-lg font-medium roboto-condensed text-lg">
-              Revisar agendamento
-            </button>
-          </div>
-        </div>
-
-
-      </div>
-
-    </div>
-    <div class="flex flex-col gap-5  pt-5">
+  <section class=" bg-white mb-28 ">
+    <div class="flex flex-col gap-3 px-3  pt-5">
       <div class="card " v-for="(card, index) in cards" :key="index">
         <div class="flex justify-between roboto cursor-pointer sm:text-sm md:text-lg  roboto-condensed"
              @click="toggleCard(index)">
-          <div class="day-of-week mb-2 ">{{ card.dayOfWeek }}</div>
-          <div class="day-and-month font-bold">{{ card.day }} / {{ card.month }}</div>
+          <div class="day-of-week mb-2 text-secondary ">{{ card.dayOfWeek }}</div>
+          <div class="day-and-month font-bold text-secondary">{{ card.day }} / {{ card.month }}</div>
         </div>
 
         <div class="extra-content" :class="{ 'open': isOpen[index] }">
@@ -145,7 +127,7 @@ export default {
                 class="horarios"
                 :class="{
                   'bg-white text-primary': !horario.isActive,
-                  ' bg-gradient-to-r to-[#457fca] from-[#5691c8] text-white border-white': horario.isActive
+                  'bg-gradient-to-r to-danger from-danger text-white border-white': horario.isActive
                 }"
                 @click="selectHorario(card.day, card.month, card.year, indexHorario)"
                 v-for="(horario, indexHorario) in horarios"
@@ -158,20 +140,43 @@ export default {
       </div>
     </div>
 
+    <div class="flex items-center  fixed w-full bottom-0 z-40 bg-secondary h-[70px] px-5">
+      <div class="flex justify-between items-center w-full ">
+        <div class="flex items-center gap-3">
+          <img src="../assets/images/icones/novos/tesoura-branca.png"
+               class="w-[45px] h-[45px] rounded-full p-1 bg-gray-800" alt="">
+          <div class="text-sm">
+            <p class="text-white flex flex-1">Serviço:  {{agendamento.getServico}}</p>
+            <p class="text-white flex flex-1 font-medium">
+              {{agendamento.dateAppointment ? convertDate(agendamento.dateAppointment) : ' '}}
+            </p>
+          </div>
+
+        </div>
+
+        <router-link :to="{name: 'checkout'}" class="hover:bg-opacity-80 bg-danger p-2 rounded-lg text-white font-medium w-4/12 text-center">
+          <button class="">
+            Agendar
+          </button>
+        </router-link>
+
+      </div>
+    </div>
+
   </section>
 </template>
 
 <style scoped>
 .card {
-  @apply shadow shadow-white rounded-lg w-full px-4 font-medium
-  bg-transparent border-2 border-white text-white p-2
+  @apply shadow-lg shadow-gray-300 rounded-lg w-full px-4 font-medium
+  bg-white border-2 border-white text-white p-2
 }
 
 .horarios {
   @apply rounded-full w-auto text-center p-2.5  border-2
-  font-medium  cursor-pointer
+  font-medium  cursor-pointer bg-secondary text-white
 
-  hover:bg-transparent hover:border-white hover:text-white
+  hover:bg-transparent hover:border-primary hover:text-primary
 }
 
 .extra-content {

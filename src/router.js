@@ -1,7 +1,7 @@
 import { createWebHistory, createRouter } from 'vue-router'
 import { useLoginGoogleStore } from './store/googleLogin.js'
 import { decodeCredential } from 'vue3-google-login'
-
+import { useShowMenu } from './store/ShowMenu.js'
 function isAuthenticated () {
 
   const loginGoogle = useLoginGoogleStore()
@@ -33,6 +33,11 @@ const routes = [
     path: '/',
     name: 'login',
     component: () => import('./views/login.vue')
+  },
+  {
+    path: '/cadastro',
+    name: 'cadastro',
+    component: () => import('./views/Cadastro.vue')
   },
   {
     path: '/dashboard',
@@ -80,6 +85,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!isAuthenticated()) {
       next('/')
@@ -87,8 +93,10 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else {
+
     next()
   }
+
 })
 
 export default router

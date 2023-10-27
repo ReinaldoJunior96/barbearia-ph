@@ -2,18 +2,13 @@
 import { decodeCredential, GoogleLogin } from 'vue3-google-login'
 import { useAlert } from '../store/Alert.js'
 import axios from 'axios'
-import $ from 'jquery'
 
 export default {
-  components: {
-    GoogleLogin
-  },
   data () {
     return {
-      loggedIn: false,
-      showcard: false,
-      user: '',
-      password: ''
+      email: '',
+      password: '',
+      name: ''
     }
   },
   methods: {
@@ -26,20 +21,25 @@ export default {
         inputPassword.type = 'text' // Altera o tipo de entrada para 'text'
       }
     },
-    login () {
-
-      $('.lds-dual-ring').toggle();
-      $('.textBtn').toggle();
-
-      localStorage.removeItem('token')
-      self = this
-      axios.post('/api/users/login', {
-        'email': this.user,
-        'password': this.password
-      })
+    register () {
+      axios
+          .post('/api/users/created', {  // Use o URL relativo definido no proxy
+            email: this.email,
+            password: this.password
+          })
           .then((res) => {
-            localStorage.setItem('token', res.data.token)
-            localStorage.setItem('name', res.data.user.email)
+            if (res.status === 201) {
+              return axios.post('/api/users/login', {
+                email: res.data.user.email,
+                password: res.data.user.password
+              })
+            } else {
+              alert('Error')
+            }
+          })
+          .then(loginRes => {
+            localStorage.setItem('token', loginRes.data.token)
+            localStorage.setItem('name', loginRes.data.user.email)
             this.$router.push('/home')
           })
           .catch((error) => {
@@ -47,10 +47,6 @@ export default {
           })
     }
 
-  },
-  mounted () {
-    $('.lds-dual-ring').hide()
-    $('.textBtn').show()
   }
 }
 
@@ -60,42 +56,44 @@ export default {
   <section class="bg-[#070C17] h-screen">
     <div class="flex flex-col h-full  items-center ">
       <img class="w-full h-[320px] object-contain pt-5"
-           src="../assets/images/pack-logo/logo-sem-fundo.png" alt="">
+           src="../assets/images/render_final_2.png" alt="">
 
-      <div class="flex flex-col gap-4 w-9/12">
+      <div class="flex flex-col gap-5 w-9/12">
         <div class="flex items-center w-full shadow text-primary p-1.5 rounded-lg bg-white px-3">
           <i class="fa-solid fa-user text-accent300"></i>
-          <input v-model="this.user" type="text"
+          <input v-model="name" type="text"
+                 class=" w-full outline-0 text-center text-base roboto-condensed " placeholder="Nome">
+        </div>
+        <div class="flex items-center w-full shadow text-primary p-1.5 rounded-lg bg-white px-3">
+          <i class="fa-solid fa-at text-accent300"></i>
+          <input v-model="email" type="text"
                  class=" w-full outline-0 text-center text-base roboto-condensed " placeholder="E-mail">
         </div>
         <div class="flex items-center w-full shadow text-primary p-1.5 rounded-lg bg-white px-3">
           <i class="fa-solid fa-unlock text-accent300"></i>
-          <input v-model="this.password" type="password" placeholder="Senha"
+          <input v-model="password" type="password" placeholder="Senha"
                  class=" w-full outline-0 text-center text-base password roboto-condensed font-medium ">
           <i @click="this.seePassword()" class="fa-solid fa-eye  text-accent300"></i>
         </div>
-        <div class="flex flex-col items-center justify-between gap-5 ">
-
-          <button @click="login()" class="btn-login montserrat  ">
-            <span class="textBtn">Login</span>
-            <span class="lds-dual-ring"></span>
-          </button>
-
-
-          <div class="">
-            <p class="text-white ">
-              Não tem conta?
-              <router-link :to="{name: 'cadastro'}">
-                <strong>Cadastre-se aqui</strong>
-              </router-link>
-            </p>
-          </div>
-
+        <button class="btn-login" @click="register()">
+          Registrar
+        </button>
+        <div class="text-center">
+          <p class="text-white ">
+            Já tem conta?
+            <router-link :to="{name: 'login'}">
+              <strong>Faça login</strong>
+            </router-link>
+          </p>
         </div>
+
 
       </div>
 
     </div>
   </section>
 </template>
+<style scoped>
+
+</style>
 

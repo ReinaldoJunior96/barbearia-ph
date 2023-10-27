@@ -118,3 +118,36 @@
     hover:bg-emerald-800 hover:text-white shadow shadow-white
 }
 
+.btn-login {
+    @apply flex justify-center items-center bg-accent500 w-full
+    rounded-lg text-white font-medium cursor-pointer h-[35px] py-4
+    border-opacity-100 border-2
+    hover:bg-white hover:bg-transparent
+}
+
+
+
+
+
+.lds-dual-ring{
+    display: block ;
+}
+.lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
