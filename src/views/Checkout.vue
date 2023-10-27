@@ -1,26 +1,27 @@
 <script>
-import { useLoginGoogleStore } from '../store/googleLogin.js'
 import { useAgendamento } from '../store/agendamento.js'
+import { useAlert } from '../store/Alert.js'
 import axios from 'axios'
+import Alert from '../components/Alert.vue'
 
 export default {
+  components: { Alert },
   data () {
     return {
       checkAcceptTerms: true,
     }
   },
   setup () {
-    const loginGoogle = useLoginGoogleStore()
     const agendamento = useAgendamento()
     const name = localStorage.getItem('name')
     return {
-      loginGoogle,
       agendamento,
       name
     }
   },
   methods: {
     clearAppoitment () {
+      const alert = useAlert()
       const agendamento = useAgendamento()
       // Recupere o token do Local Storage
       const token = localStorage.getItem('token')
@@ -38,9 +39,12 @@ export default {
         axios.post('http://54.208.52.199:3000/api/appointments/created', requestData, axiosConfig) // Passando a configuração do cabeçalho como o terceiro argumento
             .then((res) => {
               agendamento.cleanAppointment()
+              alert.push('Success', 'Horário agendado com sucesso!!')
               this.$router.push({ name: 'home' })
             })
             .catch((error) => {
+              alert.push('Error', 'Um erro aconteceu, tente agendar <br> novamente')
+              this.$router.push('/home')
               console.error('Erro no registro', error)
             })
       } else {
@@ -108,15 +112,17 @@ export default {
           Estou de acordo em chegar 15 minutos antes do meu horário. Caso não consiga, você pode cancelar meu horário.
         </label>
 
-        <input  @change="this.checkAcceptTerms =  !this.checkAcceptTerms"
-                class="mt-1.5 " type="checkbox"
+        <input @change="this.checkAcceptTerms =  !this.checkAcceptTerms"
+               class="mt-1.5 " type="checkbox"
                id="checkConcordo">
       </div>
       <button
           @click="clearAppoitment()"
-          class="flex-1 bg-danger  hover:bg-gradient-to-r hover:to-white
-            hover:text-primary  w-full p-2  hover:bg-white hover:border-primary hover:border
-            text-white rounded-lg font-medium roboto-condensed text-lg cursor-pointer"
+          class="flex-1
+          bg-[#38ef7d] w-full p-2 hover:text-secondary
+          hover:bg-white hover:border-primary hover:border
+            text-white rounded-lg font-medium roboto-condensed
+             text-lg cursor-pointer"
 
           :class="{
               'bg-gradient-to-r to-gray-500 from-gray-500  shadow-sm shadow-black-400  hover:to-gray-500 hover:from-gray-500 shadow-gray-400': checkAcceptTerms,

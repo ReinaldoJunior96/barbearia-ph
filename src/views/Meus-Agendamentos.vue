@@ -1,5 +1,6 @@
 <script>
 import { useAgendamento } from '../store/agendamento.js'
+import { useAlert } from '../store/Alert.js'
 import $ from 'jquery'
 import { ref } from 'vue'
 import axios from 'axios'
@@ -21,6 +22,8 @@ export default {
 
         })
         .catch((error) => {
+          const alert = useAlert()
+          alert.push('Error', 'Error ao listar agendamentos!!')
           console.error('Erro no registro', error)
         })
     return {
@@ -58,22 +61,26 @@ export default {
       self = this
       axios.delete(`http://54.208.52.199:3000/api/appointments/delete/${appId}`, axiosConfig) // Passando o appId na URL
           .then((res) => {
-
+            const alert = useAlert()
+            alert.push('Success', 'Agendamento deletado!!')
             self.appointments.splice(index, 1)
           })
           .catch((error) => {
+            const alert = useAlert()
+            alert.push('Error', 'Error ao deletar agendamento')
             console.error('Erro no registro', error)
           })
     }
 
-  }
+  },
+
 }
 </script>
 
 <template>
   <section>
     <div class="px-5 relative mb-10">
-      <div class="flex flex-col gap-3 mt-5 relative  ">
+      <div v-if="appointments.length > 0" class="flex flex-col gap-3 mt-5 relative  ">
         <div v-for="(ap, index) in appointments" :key="ap._id"
              class="bg-white rounded-lg p-3  border-l-[5px] border-secondary montserrat text-lg shadow-gray-300 shadow-sm  ">
           <div class="flex items-center justify-between">
@@ -113,6 +120,10 @@ export default {
             <p class="text-secondary ">Serivço: {{ ap.service }}</p>
           </div>
         </div>
+      </div>
+      <div v-else-if="appointments.length === 0"
+           class="fixed top-[51%] translate-x-[2px]  w-auto">
+        <p class="text-lg montserrat text-gray-300 w-auto text-center">Você ainda não realizou nenhum agendamento</p>
       </div>
     </div>
     </section>

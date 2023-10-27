@@ -1,32 +1,6 @@
 import { createWebHistory, createRouter } from 'vue-router'
-import { useLoginGoogleStore } from './store/googleLogin.js'
 import { decodeCredential } from 'vue3-google-login'
 import { useShowMenu } from './store/ShowMenu.js'
-function isAuthenticated () {
-
-  const loginGoogle = useLoginGoogleStore()
-  const tokenRecuperado = localStorage.getItem('token')
-
-  if (!tokenRecuperado) {
-    window.location.href = '/'
-    console.log('Token not found!!')
-  }
-
-  let user = decodeCredential(tokenRecuperado)
-  let isAutenticaded = Boolean
-
-  if (user) {
-    loginGoogle.setName(user.name)
-    loginGoogle.setEmail(user.email)
-    loginGoogle.setPicture(user.picture)
-    isAutenticaded = true
-  } else {
-    isAutenticaded = false
-    console.log('Token not found!!')
-    window.location.href = '/'
-  }
-  return isAutenticaded
-}
 
 const routes = [
   {
@@ -42,7 +16,6 @@ const routes = [
   {
     path: '/dashboard',
     component: () => import('./views/Dashboard.vue'),
-    meta: { requiresAuth: true },
     children: [
       {
         path: '/home',
@@ -84,19 +57,19 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
-
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!isAuthenticated()) {
-      next('/')
-    } else {
-      next()
-    }
-  } else {
-
-    next()
-  }
-
-})
+// router.beforeEach((to, from, next) => {
+//
+//   if (to.matched.some(record => record.meta.requiresAuth)) {
+//     if (!isAuthenticated()) {
+//       next('/')
+//     } else {
+//       next()
+//     }
+//   } else {
+//
+//     next()
+//   }
+//
+// })
 
 export default router

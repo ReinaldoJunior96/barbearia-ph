@@ -17,9 +17,10 @@ export const useAgendamento = defineStore('agendamento', {
   actions: {
     agendar (texto) {
       this.date = texto
-
+      localStorage.setItem('dateService', texto)
     },
     addServico (servico) {
+      localStorage.getItem('service')
       this.servico = servico // Correção: Use state.textoAgendamento
     },
     addTime (time) {

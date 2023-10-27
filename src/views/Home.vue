@@ -1,49 +1,22 @@
 <script>
 
-import { useLoginGoogleStore } from '../store/googleLogin.js'
 import { useAgendamento } from '../store/agendamento.js'
 import Menu from '../components/Navbar.vue'
+import Alert from '../components/Alert.vue'
+import { useAlert } from '../store/Alert.js'
 
-// Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation, Pagination } from 'swiper/modules'
-
-// Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/pagination'
 
 export default {
-  components: { Menu, Swiper, SwiperSlide },
-  setup () {
-    const loginGoogle = useLoginGoogleStore()
-
-    return {
-      loginGoogle,
-      modules: [Pagination]
-    }
-  },
+  components: { Menu, Alert },
   data () {
     return {
-      name: localStorage.getItem('name'),
-      menuHome: [
-        {
-          'icone': 'fa-solid fa-calendar-check',
-          'opcao': 'Agendamentos',
-          'link': 'agendar-horario'
-        },
-        {
-          'icone': 'fa-brands fa-servicestack',
-          'opcao': 'Serviços',
-          'link': ''
-        },
-      ],
-      servicos: ['Cabelo', 'Barba', 'Luzes', 'Platinado', 'Platinado + Corte', 'Cabelo + Barba']
-    }
+      name: localStorage.getItem('name'),  }
   },
   methods: {
     iniciarAgendamento (service) {
       const agendamento = useAgendamento()
       agendamento.addServico(service)
+      localStorage.setItem('service', service)
       this.$router.push({ name: 'agendar-horario' })
     }
   }
@@ -52,7 +25,7 @@ export default {
 </script>
 
 <template>
-  <section class="relative ">
+  <section class="relative  ">
 
 
     <div class="grid grid-cols-2 gap-x-10 gap-y-10 p-10 justify-items-center">

@@ -24,6 +24,7 @@ export default {
     register () {
       axios
           .post('http://54.208.52.199:3000/api/users/created', {  // Use o URL relativo definido no proxy
+            name: this.name,
             email: this.email,
             password: this.password
           })
@@ -39,7 +40,7 @@ export default {
           })
           .then(loginRes => {
             localStorage.setItem('token', loginRes.data.token)
-            localStorage.setItem('name', loginRes.data.user.email)
+            localStorage.setItem('name', loginRes.data.user.name)
             this.$router.push('/home')
           })
           .catch((error) => {

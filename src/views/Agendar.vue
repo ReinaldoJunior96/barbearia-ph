@@ -1,8 +1,7 @@
 <script>
 
-import { useLoginGoogleStore } from '../store/googleLogin.js'
 import { useAgendamento } from '../store/agendamento.js'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 export default {
   data () {
@@ -14,23 +13,25 @@ export default {
       duracao: 1,     // Duração de cada atendimento (1 hora)
       horarios: [],    // Lista de horários disponíveis
       isActive: true,
+      dateAgendamento: Date
     }
   },
   setup () {
-    const loginGoogle = useLoginGoogleStore()
     const agendamento = useAgendamento()
-
     const textoAgendamento = ref(null)
+
     return {
-      loginGoogle,
       textoAgendamento,
-      agendamento
+      agendamento,
     }
   },
   mounted () {
     // Gerar os dados dos cards automaticamente
     this.generateCards()
     this.calcularHorariosDisponiveis()
+
+    this.dateAgendamento = localStorage.getItem('dateService')
+
   },
   methods: {
     generateCards () {
@@ -89,14 +90,16 @@ export default {
       // Alterna a propriedade isActive para selecionar ou deselecionar o horário
       horario.isActive = !horario.isActive
       const agendamento = useAgendamento()
+      if(day < 10){
+        day = '0'+day
+      }
       agendamento.agendar(`${year}-${month}-${day}T${horario.time}`)
-      agendamento.addTime(horario.time)
-      //agendamento.agendar(`Agendamento: ${day}/${month}/${year} às ${horario.time}`)
-      //console.log(agendamento.getTextAgendamentoIsVisible)
+      this.dateAgendamento = `${year}-${month}-${day}T${horario.time}`
+      // console.log(`${year}-${month}-${day}T${horario.time}`)
+      // console.log(day)
     },
     convertDate (date) {
       const dataObj = new Date(date)
-
       const dia = dataObj.getDate()
       const mes = dataObj.getMonth() + 1
       const ano = dataObj.getFullYear()
@@ -143,18 +146,19 @@ export default {
     <div class="flex items-center  fixed w-full bottom-0 z-40 bg-secondary h-[70px] px-5">
       <div class="flex justify-between items-center w-full ">
         <div class="flex items-center gap-3">
-          <img src="../assets/images/icones/novos/tesoura-branca.png"
-               class="w-[45px] h-[45px] rounded-full p-1 bg-gray-800" alt="">
+          <img src="../assets/images/icones/novos/plaquinha-branca.png"
+               class="w-[30px] h-[30px]   object-contain " alt="">
           <div class="text-sm">
-            <p class="text-white flex flex-1">Serviço:  {{agendamento.getServico}}</p>
+            <p class="text-white flex flex-1">Serviço: {{ agendamento.getServico }}</p>
             <p class="text-white flex flex-1 font-medium">
-              {{agendamento.dateAppointment ? convertDate(agendamento.dateAppointment) : ' '}}
+              {{ convertDate(dateAgendamento) }}
             </p>
           </div>
 
         </div>
 
-        <router-link :to="{name: 'checkout'}" class="hover:bg-opacity-80 bg-danger p-2 rounded-lg text-white font-medium w-4/12 text-center">
+        <router-link v-if="agendamento.getServico && agendamento.dateAppointment" :to="{name: 'checkout'}"
+                     class="hover:bg-opacity-80 bg-danger p-2 rounded-lg text-white font-medium w-4/12 text-center">
           <button class="">
             Agendar
           </button>
