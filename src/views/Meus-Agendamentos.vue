@@ -16,7 +16,7 @@ export default {
       }
     }
 
-    axios.get('http://54.208.52.199:3000/api/users/appointments', axiosConfig)
+    axios.get('http://18.233.12.172:3000/api/users/appointments', axiosConfig)
         .then((res) => {
           appointments.value = res.data.appointments
 
@@ -59,7 +59,7 @@ export default {
         }
       }
       self = this
-      axios.delete(`http://54.208.52.199:3000/api/appointments/delete/${appId}`, axiosConfig) // Passando o appId na URL
+      axios.delete(`http://18.233.12.172:3000/api/appointments/delete/${appId}`, axiosConfig) // Passando o appId na URL
           .then((res) => {
             const alert = useAlert()
             alert.push('Success', 'Agendamento deletado!!')

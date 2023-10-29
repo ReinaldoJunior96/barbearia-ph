@@ -23,14 +23,14 @@ export default {
     },
     register () {
       axios
-          .post('http://54.208.52.199:3000/api/users/created', {  // Use o URL relativo definido no proxy
+          .post('http://18.233.12.172:3000/api/users/created', {  // Use o URL relativo definido no proxy
             name: this.name,
             email: this.email,
             password: this.password
           })
           .then((res) => {
             if (res.status === 201) {
-              return axios.post('http://54.208.52.199:3000/api/users/login', {
+              return axios.post('http://18.233.12.172:3000/api/users/login', {
                 email: res.data.user.email,
                 password: res.data.user.password
               })
