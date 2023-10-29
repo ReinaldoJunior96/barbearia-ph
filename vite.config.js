@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  publicPath: '/barbeariasdasdaa',
+  publicPath: '/barbearia',
   plugins: [vue()],
   // vite.config.js
   // server: {
