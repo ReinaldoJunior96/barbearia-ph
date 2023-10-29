@@ -1,6 +1,4 @@
 import { createWebHistory, createRouter } from 'vue-router'
-import { decodeCredential } from 'vue3-google-login'
-import { useShowMenu } from './store/ShowMenu.js'
 
 const routes = [
   {
@@ -53,23 +51,8 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  mode: 'history',
+  // mode: 'history',
   routes,
 })
-
-// router.beforeEach((to, from, next) => {
-//
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     if (!isAuthenticated()) {
-//       next('/')
-//     } else {
-//       next()
-//     }
-//   } else {
-//
-//     next()
-//   }
-//
-// })
 
 export default router
