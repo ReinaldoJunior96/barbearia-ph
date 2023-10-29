@@ -16,5 +16,5 @@ app.config.warnHandler = (msg, vm, trace) => {
   // Lidar com avisos
   console.warn(`Aviso: ${msg}`);
 };
-
+console.log('montei o app')
 app.mount('#app');
