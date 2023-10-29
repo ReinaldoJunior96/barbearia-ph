@@ -12,34 +12,34 @@ const routes = [
     component: () => import('./views/Cadastro.vue')
   },
   {
-    path: '/dashboard',
+    path: '/barbearia',
     component: () => import('./views/Dashboard.vue'),
     children: [
       {
-        path: '/barbearia/home',
+        path: '/home',
         name: 'home',
         component: () => import('./views/Home.vue'),
       },
       {
-        path: '/barbearia/agendar',
+        path: '/agendar',
         name: 'agendar-horario',
         meta: { requiresAuth: true },
         component: () => import('./views/Agendar.vue')
       },
       {
-        path: '/barbearia/meus-agendamentos',
+        path: '/meus-agendamentos',
         name: 'meus-agendamentos',
         meta: { requiresAuth: true },
         component: () => import('./views/Meus-Agendamentos.vue')
       },
       {
-        path: '/barbearia/servicos',
+        path: '/servicos',
         name: 'servicos',
         meta: { requiresAuth: true },
         component: () => import('./views/Servicos.vue')
       },
       {
-        path: '/barbearia/checkout',
+        path: '/checkout',
         name: 'checkout',
         meta: { requiresAuth: true },
         component: () => import('./views/Checkout.vue')
