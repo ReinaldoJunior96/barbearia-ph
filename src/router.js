@@ -2,7 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 
 const routes = [
   {
-    path: '/',
+    path: '/barbearia',
     name: 'login',
     component: () => import('./views/login.vue')
   },
