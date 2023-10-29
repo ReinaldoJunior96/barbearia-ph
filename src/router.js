@@ -7,7 +7,7 @@ const routes = [
     component: () => import('./views/login.vue')
   },
   {
-    path: '/cadastro',
+    path: '/barbearia/cadastro',
     name: 'cadastro',
     component: () => import('./views/Cadastro.vue')
   },
@@ -16,30 +16,30 @@ const routes = [
     component: () => import('./views/Dashboard.vue'),
     children: [
       {
-        path: '/home',
+        path: '/barbearia/home',
         name: 'home',
         component: () => import('./views/Home.vue'),
       },
       {
-        path: '/agendar',
+        path: '/barbearia/agendar',
         name: 'agendar-horario',
         meta: { requiresAuth: true },
         component: () => import('./views/Agendar.vue')
       },
       {
-        path: '/meus-agendamentos',
+        path: '/barbearia/meus-agendamentos',
         name: 'meus-agendamentos',
         meta: { requiresAuth: true },
         component: () => import('./views/Meus-Agendamentos.vue')
       },
       {
-        path: '/servicos',
+        path: '/barbearia/servicos',
         name: 'servicos',
         meta: { requiresAuth: true },
         component: () => import('./views/Servicos.vue')
       },
       {
-        path: '/checkout',
+        path: '/barbearia/checkout',
         name: 'checkout',
         meta: { requiresAuth: true },
         component: () => import('./views/Checkout.vue')
@@ -51,8 +51,7 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(),
-  // mode: 'history',
-  base: '/barbearia',
+  mode: 'history',
   routes,
 })
 
