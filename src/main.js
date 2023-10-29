@@ -1,18 +1,20 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
-import router from './router'
-import './style.css'
-import vue3GoogleLogin from 'vue3-google-login'
-import {createPinia} from 'pinia'
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
+import router from './router';
+import { createPinia } from 'pinia';
+
+const app = createApp(App);
 
 const pinia = createPinia();
+app.use(router);
+app.use(pinia);
 
+app.config.devtools = true; // Ativar ferramentas de desenvolvedor
+app.config.debug = true; // Ativar modo de depuração
+app.config.warnHandler = (msg, vm, trace) => {
+  // Lidar com avisos
+  console.warn(`Aviso: ${msg}`);
+};
 
-
-
-
-createApp(App)
-  .use(router)
-  .use(pinia)
-  .mount('#app')
+app.mount('#app');
