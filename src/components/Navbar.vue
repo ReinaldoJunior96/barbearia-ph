@@ -127,7 +127,7 @@ export default {
       menu.show()
       localStorage.clear();
 
-      this.$router.push('/')
+      this.$router.push('/barbearia')
     },
     showSideBar () {
       const showMenu = useShowMenu()

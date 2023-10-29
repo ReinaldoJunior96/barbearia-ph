@@ -23,14 +23,14 @@ export default {
     },
     register () {
       axios
-          .post('http://18.233.12.172:3000/api/users/created', {  // Use o URL relativo definido no proxy
+          .post('http://18.233.12.172:9876/api/users/created', {  // Use o URL relativo definido no proxy
             name: this.name,
             email: this.email,
             password: this.password
           })
           .then((res) => {
             if (res.status === 201) {
-              return axios.post('http://18.233.12.172:3000/api/users/login', {
+              return axios.post('http://18.233.12.172:9876/api/users/login', {
                 email: res.data.user.email,
                 password: res.data.user.password
               })
@@ -41,7 +41,7 @@ export default {
           .then(loginRes => {
             localStorage.setItem('token', loginRes.data.token)
             localStorage.setItem('name', loginRes.data.user.name)
-            this.$router.push('/home')
+            this.$router.push({name: 'home'})
           })
           .catch((error) => {
             console.error('Erro no registro', error)

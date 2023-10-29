@@ -38,7 +38,7 @@ export default {
 
       localStorage.removeItem('token')
       self = this
-      axios.post('http://18.233.12.172:3000/api/users/login', {
+      axios.post('http://18.233.12.172:9876/api/users/login', {
         'email': this.user,
         'password': this.password
       })
@@ -47,7 +47,7 @@ export default {
             localStorage.setItem('name', res.data.user.name)
             localStorage.setItem('email', res.data.user.email)
 
-            this.$router.push('/home')
+            this.$router.push({name: 'home'})
           })
           .catch((error) => {
             $('.lds-dual-ring').toggle()
@@ -63,7 +63,7 @@ export default {
     $('.lds-dual-ring').hide()
     $('.textBtn').show()
     if (localStorage.getItem('token')) {
-      this.$router.push('/home')
+      this.$router.push({name: 'login'})
     }
 
   },

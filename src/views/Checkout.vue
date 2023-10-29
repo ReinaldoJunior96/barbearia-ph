@@ -36,7 +36,7 @@ export default {
           service: agendamento.getServico
         }
 
-        axios.post('http://18.233.12.172:3000/api/appointments/created', requestData, axiosConfig) // Passando a configuração do cabeçalho como o terceiro argumento
+        axios.post('http://18.233.12.172:9876/api/appointments/created', requestData, axiosConfig) // Passando a configuração do cabeçalho como o terceiro argumento
             .then((res) => {
               agendamento.cleanAppointment()
               alert.push('Success', 'Horário agendado com sucesso!!')
@@ -44,7 +44,7 @@ export default {
             })
             .catch((error) => {
               alert.push('Error', 'Um erro aconteceu, tente agendar novamente')
-              this.$router.push('/home')
+              this.$router.push({name: 'home'})
               console.error('Erro no registro', error)
             })
       } else {

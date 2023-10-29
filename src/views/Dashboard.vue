@@ -30,7 +30,6 @@ export default {
     const menu = useShowMenu()
     return {
       menu,
-      google
     }
   },
   mounted () {
