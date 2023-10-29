@@ -2,7 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 
 const routes = [
   {
-    path: '/barbearia',
+    path: '/',
     name: 'login',
     component: () => import('./views/login.vue')
   },
@@ -52,6 +52,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   // mode: 'history',
+  base: '/barbearia',
   routes,
 })
 
